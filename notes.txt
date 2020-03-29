@@ -1,0 +1,114 @@
+https://medium.com/human-in-a-machine-world/mae-and-rmse-which-metric-is-better-e60ac3bde13d - RMSE v/s MAE
+plotting data frame
+plt.plot(X_train.T, '.') : this will plot with features along x-axisplt.xticks(rotation = 'vertical') : when feature names are long and they overlap in the graph.This will place the label vertically
+
+How to binarize the dataX_binarised_train = X_train.apply(pd.cut,bins= 2, labels = [0,1])
+Detecting Credit Card Fraud using XGBoost and Bayesian Hyper-Parameter Optimizationhttps://github.com/MiladShahidi/Fraud-Detection-XGBoost/blob/master/XGBoost_Fraud_Detection.ipynb
+
+
+scale_pos_weight in xgboosthttps://stats.stackexchange.com/questions/243207/what-is-the-proper-usage-of-scale-pos-weight-in-xgboost-for-imbalanced-datasetsGenerally, the Scale_pos_weight is the ratio of number of negative class to the positive class. Suppose, the dataset has 90 observations of negative class and 10 observations of positive class, then ideal value of scale_pos_Weight should be 9
+Control the balance of positive and negative weights, useful for unbalanced classes. A typical value to consider: sum(negative instances) / sum(positive instances)
+https://scikit-learn.org/stable/auto_examples/model_selection/plot_precision_recall.html#sphx-glr-auto-examples-model-selection-plot-precision-recall-py high precision relates to a low false positive rate, and high recall relates to a low false negative rateIn information retrieval, precision is a measure of result relevancy, while recall is a measure of how many truly relevant results are returnedA system with high recall but low precision returns many results, but most of its predicted labels are incorrect when compared to the training labels. A system with high precision but low recall is just the opposite, returning very few results, but most of its predicted labels are correct when compared to the training labels. An ideal system with high precision and high recall will return many results, with all results labeled correctly.
+The definition of precision () shows that lowering the threshold of a classifier may increase the denominator, by increasing the number of results returned. If the threshold was previously set too high, the new results may all be true positives, which will increase precision. If the previous threshold was about right or too low, further lowering the threshold will introduce false positives, decreasing precision.  
+
+Recall is defined as , where  does not depend on the classifier threshold. This means that lowering the classifier threshold may increase recall, by increasing the number of true positive results. It is also possible that lowering the threshold may leave recall unchanged, while the precision fluctuates.  
+
+The relationship between recall and precision can be observed in the stairstep area of the plot - at the edges of these steps a small change in the threshold considerably reduces precision, with only a minor gain in recall. 
+ BAYESIAN OPTIMIZATION
+https://arxiv.org/abs/1807.02811  
+Bayesian optimization is an approach to optimizing objective functions that take a long time (minutes or hours) to evaluate. It is best-suited for optimization over continuous domains of less than 20 dimensions  
+
+https://www.youtube.com/watch?v=vz3D36VXefI  
+
+ -----------------------------------------
+UDEMY PANDAS NOTES------------------------------------------round(titanic, 0)
+titanic.min()
+titanic.age.equals(titanic["age"])
+medals.iloc[[2,45,765]]
+medals.iloc[34:39,[0,2,6,8]]
+medals.iloc[:, 4].equals(medals.Athlete)
+medals.loc["PHELPS, Michael"].iloc[0]
+medals.loc["PHELPS, Michael", "Medal"]--->  [row_label, col_label]
+medals.loc["PHELPS, Michael", ["Event","Medal"]]
+medals.loc[["PHELPS, Michael", "LEWIS, Carl"], ["Event","Medal"]] ---> list of row_labels & col_labels
+medals.loc[:"CHASAPIS, Spiridon"] --> from the beginning to the row_label
+medals.loc["DRIVAS, Dimitrios":"BLAKE, Arthur"] ---> range of row_labels (works only when label is unique & fails when label has multiple occurrences)
+BOTH END POINTS ARE INCLUDED IN .loc
+medals.loc["HAJOS, Alfred", "Year":"Discipline"]  ------> row_label & col_label range
+summer[["Year", "Event", "Medal"]].loc["LEWIS, Carl"]
+summer.loc["LEWIS, Carl"][["Year", "Event", "Medal"]]  ==   summer.loc["LEWIS, Carl", ["Year", "Event", "Medal"]]
+age.head(n=2) ---> display only first two rows of the dataframe head
+age.sum(skipna=True)  ---------> find sum skipping NA
+age.nunique(dropna = False)
+age.value_counts() ==  age.value_counts(dropna = True, sort = True, ascending = False)      --------------> returns the frequency count of each value ( absolute frequency)
+age.value_counts(dropna = False)
+age.value_counts(dropna = True, sort = True, ascending = False, normalize = True)          ---------------> returns relative frequency of each value
+age.value_counts(dropna = True, sort = True, ascending= False, bins = 10)
+CREATING PANDAS SERIES FROM DICTIONARY
+dic = {"Mon":10, "Tue":25, "Wed":6, "Thu": 36, "Fri": 2}
+pd.Series(dic, index = ["Fri", "Sat", "Sun", "Mon", "Tue", "Wed"])INSTEAD OF DIC WE CAN ALSO CREATE PANDAS SERIES FROM LIST / TUPLE
+PASSING LABELS THAT ARE NOT IN ORIGINAL DATAFRAME WILL RETURN NaN IN THE OUTPUT DATAFRAME FOR THE CORRESPONDING LABEL
+
+pandas.Series.name ---> returns the name of the series
+
+age.nlargest(n = 4)         ------------> n largest
+age.nlargest(n = 4).index[0]  ----------> index of n largest
+
+titanic.age.idxmax()  ----------> returns the index of maximum value in age column
+titanic.age.idxmin()
+
+sales = pd.Series([10,25,6,36,2,0,None,5], index = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun", "Mon"])
+(sales/1.1).round(2)  ----> DIVIDE THE ENTIRE SERIES BY 1.1 AND ROUND OFF BY 2
+
+PANDAS SERIES DOES NOT ALLOW NEGATIVE INDEXING WHEN THE INDEXING IS RANGE INDEX BECAUSE COMPILER WILL CANNOT DIFFERENTIATE IF ITS POSITION / LABEL BASED INDEX.IN SUCH CASES USE .ilocexample : series[-1] THROWS ERROR
+BUT IN CASE OF PANDAS SERIES HAVING LABEL BASED INDEX, NEGATIVE INDEXING WORKS cars.index.is_unique  ------- >  check if the series has unique values
+cars.index.name = 'car_model'   ---------------> rename the index
+
+cars.reset_index(inplace= True)  ------------------>   Reset the index to a RangeIndex
+
+cars.rename(columns = {"horsepower":"hp", "origin":"country"}, inplace = True)  ----------------->  Rename the column Labels "horsepower" and "origin" to "hp" and "country"
+
+In case of label index, slicing based on index labels will throw error when the on of the end points in the range has a value which is not unique
+PandasSeries.Index.get_loc('label')   -----------------> get integer location of the axis label
+Pandas index  in immutable ( both row and column index). However to change index labels we have rename() method
+CHAIN INDEXING --------->   titanic[titanic.sex == 'male']['fare']   This is not recommended way of filtering data frame.Better way is to use .loctitanic.loc[titanic.sex == "male", "fare"]
+
+mask1 = titanic.sex == "male"
+titanic_male = titanic.loc[mask1]
+mask2 = titanic.dtypes == object
+titanic.loc[:, ~mask2]                    ------------------> selecting only numeric data
+titanic.loc[mask1, ~mask2]
+
+mask1 = titanic.sex == "male"
+mask2 = titanic.age > 14
+male_adult = titanic.loc[mask1 & mask2, ["survived", "pclass", "sex", "age"]]
+
+summer.Year.between(1960, 1969)    ---------------> boolean series to select values between a range
+og_60s = summer.loc[summer.Year.between(1960, 1969, inclusive=True)]
+
+my_favourite_games = [1972, 1996]
+og_72_96 = summer.loc[summer.Year.isin(my_favourite_games)]                         -----------------------> using .isin then the filter to be applied is not a continuous range of values
+
+(titanic.sex == "male").any()     --------------------> if any one record satisfies the condition
+(titanic.sex == "male").all()        --------------------> if all the records satisfy the condition
+
+pd.Series([-1, 0.5 , 1, -0.1, 0]).any()              ------------------> .any() & .all()  can be used to check if there are any ( or if all are ) nonzero values in the series
+
+summer.drop(columns = ["Sport", "Discipline"], inplace=True)
+summer.drop(labels = "Event", axis = "columns", inplace= True)
+del summer["Event"]
+                                                 summer.drop(index = ["HAJOS, Alfred","HERSCHMANN, Otto"], inplace = True)
+summer.drop(labels = "DRIVAS, Dimitrios", axis = 0,  inplace = True)
+                                                                                                                    ------------------------>Ways to drop row(s) / column(s) from Data Frame
+titanic.insert(loc = 6, column = "relatives", value = relatives)        -------------> inserting column at a specific position
+titanic["Test"] = "Test"               ----------------> This will add column at the end
+
+
+Adding new rowplayers.loc[5, :] = ["Sergio Ramos", "Spain", "Real Madrid", True, 1.84 ,5]
+
+ADDING MANY ROWSnew = pd.DataFrame(
+    data = [["Mohamed Salah", "Egypt", "FC Liverpool", False, 1.75, 44],            ["Luis Suarez", "Uruguay", "FC Barcelona", False, 1.82, 31]],
+    columns = players.columns
+)
+ players = players.append(new, ignore_index= True)
+
